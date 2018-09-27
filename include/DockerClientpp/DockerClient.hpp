@@ -119,6 +119,14 @@ class DockerClient {
   string startExecution(const string &id, const json &config = {});
 
   /**
+   * @brief Get statistics for a execution instance
+   *
+   * @param id Execution instance ID
+   * @return Execution stats
+   */
+  string getExecutionStats(const string &id);
+  
+  /**
    * @brief Inspect a execution instance
    *
    * @param id Execution instance ID

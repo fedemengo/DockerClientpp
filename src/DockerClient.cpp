@@ -18,6 +18,7 @@ class DockerClient::Impl {
   string createExecution(const string &identifier, const json &config);
   string startExecution(const string &id, const json &config);
   string inspectExecution(const string &id);
+  string getExecutionStats(const string &id);
   ExecRet executeCommand(const string &identifier, const vector<string> &cmd);
   void putFiles(const string &identifier, const vector<string> &files,
                 const string &path);
@@ -167,6 +168,22 @@ string DockerClient::Impl::startExecution(const string &id,
   Header header = createCommonHeader(post_data.size());
   Uri uri = "/exec/" + id + "/start";
   shared_ptr<Response> res = http_client.Post(uri, header, {}, post_data);
+  switch (res->status_code) {
+    case 200:
+      break;
+    default:
+      json body = json::parse(res->body);
+      throw DockerOperationError(uri, res->status_code,
+                                 body["message"].get<string>());
+  }
+  return res->body;
+}
+
+
+string DockerClient::Impl::getExecutionStats(const string &id){
+  Header header = createCommonHeader(0);
+  Uri uri = "/exec/" + id + "/stats";
+  shared_ptr<Response> res = http_client.Get(uri, header, {});
   switch (res->status_code) {
     case 200:
       break;
