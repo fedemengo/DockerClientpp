@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 2.6)
 
 option(ENABLE_TEST "enable testing" OFF)
 option(CI_TEST "indicates CI environment" OFF)
-option(BUILD_SHARED_LIBS "build as a shared library" ON)
+option(BUILD_SHARED_LIBS "build as a shared library" OFF)
 
 set(CMAKE_CXX_FLAGS "-Wall -Wextra -O2")
 
