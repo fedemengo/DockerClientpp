@@ -281,6 +281,10 @@ string DockerClient::createContainer(const json &config, const string &name) {
   return m_impl->createContainer(config, name);
 }
 
+string DockerClient::getExecutionStats(const std::string &id){
+  return m_impl->getExecutionStats(id);
+}
+
 void DockerClient::startContainer(const string &identifier) {
   m_impl->startContainer(identifier);
 }
