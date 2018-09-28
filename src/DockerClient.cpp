@@ -19,6 +19,7 @@ class DockerClient::Impl {
   string startExecution(const string &id, const json &config);
   string inspectExecution(const string &id);
   string getExecutionStats(const string &id);
+  void downloadImage(const string &imageName, const string &tag, const json &config);
   ExecRet executeCommand(const string &identifier, const vector<string> &cmd);
   void putFiles(const string &identifier, const vector<string> &files,
                 const string &path);
@@ -194,6 +195,31 @@ string DockerClient::Impl::getExecutionStats(const string &id){
   }
   return res->body;
 }
+//POST /v1.24/images/create?fromImage=busybox&tag=latest HTTP/1.1
+
+void DockerClient::Impl::downloadImage(const string &imageName, const string &tag, const json &config){
+  string post_data = config.dump();
+  Header header = createCommonHeader(post_data.size());
+  Uri uri = "/images/create";
+  QueryParam query_param{{"fromImage", imageName}};
+  if(!tag.empty()){
+    query_param.insert({"tag",tag});
+  }
+  shared_ptr<Response> res =
+      http_client.Post(uri, header, query_param, post_data);
+  json body = json::parse(res->body);
+
+  switch (res->status_code) {
+    case 204:
+      break;
+    default: {
+      json body = json::parse(res->body);
+      throw DockerOperationError(uri, res->status_code,
+                                 body["message"].get<string>());
+    }
+  }
+   
+}
 
 string DockerClient::Impl::inspectExecution(const string &id) {
   Header header = createCommonHeader(0);
@@ -284,6 +310,11 @@ string DockerClient::createContainer(const json &config, const string &name) {
 string DockerClient::getExecutionStats(const std::string &id){
   return m_impl->getExecutionStats(id);
 }
+
+void DockerClient::downloadImage(const string &imageName, const string &tag, const json &config){
+  m_impl->downloadImage(imageName,tag,config);
+}
+
 
 void DockerClient::startContainer(const string &identifier) {
   m_impl->startContainer(identifier);

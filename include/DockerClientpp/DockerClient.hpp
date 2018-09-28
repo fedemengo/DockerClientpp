@@ -167,6 +167,7 @@ class DockerClient {
   void getFile(const string &identifier, const string &file,
                const string &path);
 
+  void downloadImage(const string &imageName, const string &tag={}, const json &config={});
  private:
   class Impl;
   unique_ptr<Impl> m_impl;
