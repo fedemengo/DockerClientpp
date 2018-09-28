@@ -19,7 +19,7 @@ class DockerClient::Impl {
   string startExecution(const string &id, const json &config);
   string inspectExecution(const string &id);
   string getExecutionStats(const string &id);
-  void downloadImage(const string &imageName, const string &tag, const json &config);
+  json downloadImage(const string &imageName, const string &tag, const json &config);
   ExecRet executeCommand(const string &identifier, const vector<string> &cmd);
   void putFiles(const string &identifier, const vector<string> &files,
                 const string &path);
@@ -197,20 +197,28 @@ string DockerClient::Impl::getExecutionStats(const string &id){
 }
 //POST /v1.24/images/create?fromImage=busybox&tag=latest HTTP/1.1
 
-void DockerClient::Impl::downloadImage(const string &imageName, const string &tag, const json &config){
+json DockerClient::Impl::downloadImage(const string &imageName, const string &tag, const json &config){
   string post_data = config.dump();
   Header header = createCommonHeader(post_data.size());
   Uri uri = "/images/create";
   QueryParam query_param{{"fromImage", imageName}};
-  if(!tag.empty()){
-    query_param.insert({"tag",tag});
-  }
+  query_param.insert({"tag",tag});
   shared_ptr<Response> res =
       http_client.Post(uri, header, query_param, post_data);
-  json body = json::parse(res->body);
-
+  std::string body;
+  if(!res->body.empty()){
+    body = "["+res->body+']';
+    std::replace( body.begin(), body.end(), '\n', ',');
+    std::replace( body.begin(), body.end(), '\r', ' ');
+    std::size_t found = body.find_last_of(',');
+    body[found]=' ';
+  }
   switch (res->status_code) {
-    case 204:
+    case 200:
+      {
+        json newbody = json::parse(body);
+        return newbody;
+      }
       break;
     default: {
       json body = json::parse(res->body);
@@ -311,8 +319,8 @@ string DockerClient::getExecutionStats(const std::string &id){
   return m_impl->getExecutionStats(id);
 }
 
-void DockerClient::downloadImage(const string &imageName, const string &tag, const json &config){
-  m_impl->downloadImage(imageName,tag,config);
+json DockerClient::downloadImage(const string &imageName, const string &tag, const json &config){
+  return m_impl->downloadImage(imageName,tag,config);
 }
 
 

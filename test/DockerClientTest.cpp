@@ -57,6 +57,15 @@ TEST_F(ContainerTest, TCPSocketTest) {
 
 #endif
 
+TEST(ExecTest, Downloadtest) {
+  DockerClient dc;  //(TCP, "127.0.0.1:8888");
+  string id;
+  json test =  dc.downloadImage("alpine:2.6");
+  std::string status = test.back()["status"];
+  EXPECT_TRUE(status == "Status: Image is up to date for alpine:2.6" || 
+              status == "Status: Downloaded newer image for alpine:2.6");
+}
+
 TEST(ExecTest, CreateExecTest) {
   DockerClient dc;  //(TCP, "127.0.0.1:8888");
   string id;

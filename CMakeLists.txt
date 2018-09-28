@@ -1,7 +1,7 @@
 project(DockerClientpp)
 cmake_minimum_required(VERSION 2.6)
 
-option(ENABLE_TEST "enable testing" OFF)
+option(ENABLE_TEST "enable testing" TRUE)
 option(CI_TEST "indicates CI environment" OFF)
 option(BUILD_SHARED_LIBS "build as a shared library" OFF)
 
