@@ -19,7 +19,7 @@ class DockerClient::Impl {
   string createExecution(const string &identifier, const json &config);
   string startExecution(const string &id, const json &config);
   string inspectExecution(const string &id);
-  string getExecutionStats(const string &id);
+  string getContainerStats(const string &id);
   json downloadImage(const string &imageName, const string &tag, const json &config);
   void killContainer(const std::string &idOrName);
   int waitContainer(const std::string &idOrName);
@@ -185,9 +185,9 @@ string DockerClient::Impl::startExecution(const string &id,
 }
 
 
-string DockerClient::Impl::getExecutionStats(const string &id){
+string DockerClient::Impl::getContainerStats(const string &id){
   Header header = createCommonHeader(0);
-  Uri uri = "/exec/" + id + "/stats";
+  Uri uri = "/containers/" + id + "/stats";
   shared_ptr<Response> res = http_client.Get(uri, header, {});
   switch (res->status_code) {
     case 200:
@@ -394,8 +394,8 @@ string DockerClient::createContainer(const json &config, const string &name) {
   return m_impl->createContainer(config, name);
 }
 
-string DockerClient::getExecutionStats(const std::string &id){
-  return m_impl->getExecutionStats(id);
+string DockerClient::getContainerStats(const std::string &id){
+  return m_impl->getContainerStats(id);
 }
 
 json DockerClient::downloadImage(const string &imageName, const string &tag, const json &config){
