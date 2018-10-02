@@ -222,7 +222,7 @@ void DockerClient::Impl::killContainer(const std::string &idOrName){
 int DockerClient::Impl::waitContainer(const std::string &idOrName){
   ///containers/(id or name)/kill
   Header header = createCommonHeader(0);
-  Uri uri = "/containers/" + idOrName + "/kill";
+  Uri uri = "/containers/" + idOrName + "/wait";
 
   shared_ptr<Response> res = http_client.Post(uri, header, {}, {});
   json body = json::parse(res->body);
@@ -432,8 +432,6 @@ string DockerClient::inspectExecution(const string &id) {
 string DockerClient::inspectContainer(const string &id) {
   return m_impl->inspectContainer(id);
 }
-
-
 
 ExecRet DockerClient::executeCommand(const string &identifier,
                                      const vector<string> &cmd) {
