@@ -310,7 +310,7 @@ string DockerClient::Impl::getLogs(const string &id,bool stdoutFlag, bool stderr
   if(tail!=-1){
     query_param.emplace("tail",std::to_string(tail));
   }
-  Uri uri = "/exec/" + id + "/logs";
+  Uri uri = "/containers/" + id + "/logs";
   shared_ptr<Response> res = http_client.Get(uri, header, query_param);
   switch (res->status_code) {
     case 200:
