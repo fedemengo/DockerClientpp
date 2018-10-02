@@ -12,6 +12,7 @@ class DockerClient::Impl {
   string listImages();
   string createContainer(const json &config, const string &name = "");
   void startContainer(const string &identifier);
+  string inspectContainer(const string &id);
   void stopContainer(const string &identifier);
   void removeContainer(const string &identifier, bool remove_volume, bool force,
                        bool remove_link);
@@ -285,6 +286,23 @@ string DockerClient::Impl::inspectExecution(const string &id) {
   return res->body;
 }
 
+string DockerClient::Impl::inspectContainer(const string &id) {
+  Header header = createCommonHeader(0);
+  Uri uri = "/containers/" + id + "/json";
+  shared_ptr<Response> res = http_client.Get(uri, header, {});
+  switch (res->status_code) {
+    case 200:
+      break;
+    default:
+      json body = json::parse(res->body);
+      throw DockerOperationError(uri, res->status_code,
+                                 body["message"].get<string>());
+  }
+  return res->body;
+}
+
+
+
 string DockerClient::Impl::getLogs(const string &id,bool stdoutFlag, bool stderrFlag, int tail) {
   Header header = createCommonHeader(0);
   QueryParam query_param{{"stdout", (stdoutFlag)?"1":"0"},
@@ -411,6 +429,12 @@ string DockerClient::inspectExecution(const string &id) {
   return m_impl->inspectExecution(id);
 }
 
+string DockerClient::inspectContainer(const string &id) {
+  return m_impl->inspectContainer(id);
+}
+
+
+
 ExecRet DockerClient::executeCommand(const string &identifier,
                                      const vector<string> &cmd) {
   return m_impl->executeCommand(identifier, cmd);
@@ -434,7 +458,6 @@ void DockerClient::killContainer(const std::string &idOrName){
 int DockerClient::waitContainer(const std::string &idOrName){
   return m_impl->waitContainer(idOrName); 
 }
-
 
 string DockerClient::getLogs(const string &id,bool stdoutFlag, bool stderrFlag, int tail){
   return m_impl->getLogs(id,stdoutFlag,stderrFlag,tail);

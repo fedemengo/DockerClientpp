@@ -174,6 +174,9 @@ class DockerClient {
   int waitContainer(const std::string &idOrName);
   
   string getLogs(const string &id,bool stdoutFlag=true, bool stderrFlag=true, int tail=-1);
+
+  string inspectContainer(const string &id) ;
+
  private:
   class Impl;
   unique_ptr<Impl> m_impl;
