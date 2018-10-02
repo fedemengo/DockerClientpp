@@ -20,6 +20,9 @@ class DockerClient::Impl {
   string inspectExecution(const string &id);
   string getExecutionStats(const string &id);
   json downloadImage(const string &imageName, const string &tag, const json &config);
+  void killContainer(const std::string &idOrName);
+  int waitContainer(const std::string &idOrName);
+  string getLogs(const string &id,bool stdoutFlag=true, bool stderrFlag=true, int tail=-1);
   ExecRet executeCommand(const string &identifier, const vector<string> &cmd);
   void putFiles(const string &identifier, const vector<string> &files,
                 const string &path);
@@ -195,6 +198,44 @@ string DockerClient::Impl::getExecutionStats(const string &id){
   }
   return res->body;
 }
+
+
+void DockerClient::Impl::killContainer(const std::string &idOrName){
+
+  ///containers/(id or name)/kill
+  Header header = createCommonHeader(0);
+  Uri uri = "/containers/" + idOrName + "/kill";
+
+  shared_ptr<Response> res = http_client.Post(uri, header, {}, {});
+  switch (res->status_code) {
+    case 204:
+    case 404:
+      break;
+    default:
+      json body = json::parse(res->body);
+      throw DockerOperationError(uri, res->status_code,
+                                 body["message"].get<string>());
+  }
+}
+
+int DockerClient::Impl::waitContainer(const std::string &idOrName){
+  ///containers/(id or name)/kill
+  Header header = createCommonHeader(0);
+  Uri uri = "/containers/" + idOrName + "/kill";
+
+  shared_ptr<Response> res = http_client.Post(uri, header, {}, {});
+  json body = json::parse(res->body);
+  switch (res->status_code) {
+    case 200:
+    case 404:
+      break;
+    default:
+      throw DockerOperationError(uri, res->status_code,
+                                 body["message"].get<string>());
+  }
+  return body["StatusCode"];  
+}
+
 //POST /v1.24/images/create?fromImage=busybox&tag=latest HTTP/1.1
 
 json DockerClient::Impl::downloadImage(const string &imageName, const string &tag, const json &config){
@@ -233,6 +274,26 @@ string DockerClient::Impl::inspectExecution(const string &id) {
   Header header = createCommonHeader(0);
   Uri uri = "/exec/" + id + "/json";
   shared_ptr<Response> res = http_client.Get(uri, header, {});
+  switch (res->status_code) {
+    case 200:
+      break;
+    default:
+      json body = json::parse(res->body);
+      throw DockerOperationError(uri, res->status_code,
+                                 body["message"].get<string>());
+  }
+  return res->body;
+}
+
+string DockerClient::Impl::getLogs(const string &id,bool stdoutFlag, bool stderrFlag, int tail) {
+  Header header = createCommonHeader(0);
+  QueryParam query_param{{"stdout", (stdoutFlag)?"1":"0"},
+                         {"stderr", (stderrFlag)?"1":"0"}};
+  if(tail!=-1){
+    query_param.emplace("tail",std::to_string(tail));
+  }
+  Uri uri = "/exec/" + id + "/logs";
+  shared_ptr<Response> res = http_client.Get(uri, header, query_param);
   switch (res->status_code) {
     case 200:
       break;
@@ -363,4 +424,18 @@ void DockerClient::putFiles(const string &identifier,
 void DockerClient::getFile(const string &identifier, const string &file,
                            const string &path) {
   m_impl->getFile(identifier, file, path);
+}
+
+
+void DockerClient::killContainer(const std::string &idOrName){
+  m_impl->killContainer(idOrName); 
+}
+
+int DockerClient::waitContainer(const std::string &idOrName){
+  return m_impl->waitContainer(idOrName); 
+}
+
+
+string DockerClient::getLogs(const string &id,bool stdoutFlag, bool stderrFlag, int tail){
+  return m_impl->getLogs(id,stdoutFlag,stderrFlag,tail);
 }

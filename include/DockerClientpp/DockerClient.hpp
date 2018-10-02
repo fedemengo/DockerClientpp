@@ -168,6 +168,12 @@ class DockerClient {
                const string &path);
 
   json downloadImage(const string &imageName, const string &tag={}, const json &config={});
+
+  void killContainer(const std::string &idOrName);
+  
+  int waitContainer(const std::string &idOrName);
+  
+  string getLogs(const string &id,bool stdoutFlag=true, bool stderrFlag=true, int tail=-1);
  private:
   class Impl;
   unique_ptr<Impl> m_impl;
