@@ -124,7 +124,7 @@ class DockerClient {
    * @param id Execution instance ID
    * @return Execution stats
    */
-  string getContainerStats(const string &id, bool stream=true);
+  string getContainerStats(const string &id);
   
   /**
    * @brief Inspect a execution instance
