@@ -135,6 +135,16 @@ class DockerClient {
   string inspectExecution(const string &id);
 
   /**
+   * @brief Update the configurations of already created container 
+   *
+   * @param identifier Container's ID or name
+   * @param config configuration
+   * @return 
+   */
+
+  void updateContainer(const std::string &id, const json &config);
+
+  /**
    * @brief Execute a command in a running container, like `docker exec`
    * command
    *

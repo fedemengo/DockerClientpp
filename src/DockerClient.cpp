@@ -29,7 +29,7 @@ class DockerClient::Impl {
                 const string &path);
   void getFile(const string &identifier, const string &file,
                const string &path);
-
+  void updateContainer(const std::string &id, const json &config);
  private:
   Http::Header createCommonHeader(size_t content_length);
 
@@ -182,6 +182,21 @@ string DockerClient::Impl::startExecution(const string &id,
                                  body["message"].get<string>());
   }
   return res->body;
+}
+
+void DockerClient::Impl::updateContainer(const std::string &id, const json &config){
+  string post_data = config.dump();
+  Header header = createCommonHeader(post_data.size());
+  Uri uri = "/containers/" + id + "/update";
+  shared_ptr<Response> res = http_client.Post(uri, header, {}, post_data);
+  switch (res->status_code) {
+    case 200:
+      break;
+    default:
+      json body = json::parse(res->body);
+      throw DockerOperationError(uri, res->status_code,
+                                 body["message"].get<string>());
+  }
 }
 
 
@@ -462,3 +477,8 @@ int DockerClient::waitContainer(const std::string &idOrName){
 string DockerClient::getLogs(const string &id,bool stdoutFlag, bool stderrFlag, int tail){
   return m_impl->getLogs(id,stdoutFlag,stderrFlag,tail);
 }
+void DockerClient::updateContainer(const std::string &id, const json &config){
+  m_impl->updateContainer(id,config);
+}
+
+
