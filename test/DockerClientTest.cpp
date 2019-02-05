@@ -152,6 +152,38 @@ TEST(ExecTest, InspectTest) {
   EXPECT_EQ(0, status["ExitCode"].get<int>());
 }
 
+TEST(ExecTest, LongIdTest){
+    string id;
+    DockerClient dc(DockerClientpp::UNIX);
+    try{
+      dc.removeContainer("teststop");
+    }
+    catch(DockerClientpp::DockerOperationError &e){
+      EXPECT_EQ(e.status_code,404);
+    }
+    id = dc.createContainer({{"AttachStdout", true},
+                             {"AttachStderr", false},
+                             {"Tty", true},
+                             {"StopSignal", "SIGKILL"},
+                             {"Image", "busybox:1.26"}},
+                            "teststop");
+    ASSERT_FALSE(id.empty()) << id;
+
+    dc.startContainer("teststop");
+    ASSERT_TRUE(std::system(("docker ps -q --no-trunc | grep " + id +
+                             " > /dev/null 2>&1")
+                                .c_str()) == 0);
+
+    const std::string longid = dc.getLongId("teststop");
+    EXPECT_EQ(longid,id);
+    EXPECT_TRUE(!longid.empty());
+    dc.killContainer("teststop");
+    ASSERT_FALSE(std::system(("docker ps -q --no-trunc | grep " + id +
+                              " > /dev/null 2>&1")
+                                 .c_str()) == 0);
+
+}
+
 TEST(ExecTest, ExecCommandTest) {
   DockerClient dc;
   ExecRet ret = dc.executeCommand("test", {"echo", "1"});

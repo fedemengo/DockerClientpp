@@ -9,6 +9,7 @@ class DockerClient::Impl {
   Impl(const SOCK_TYPE type, const string &path);
   ~Impl();
   void setAPIVersion(const string &api);
+  string getLongId(const std::string &name);
   string listImages();
   string createContainer(const json &config, const string &name = "");
   void startContainer(const string &identifier);
@@ -392,6 +393,12 @@ void DockerClient::Impl::getFile(const string &identifier, const string &file,
   Utility::Archive::extractTar(res->body, path);
 }
 
+std::string DockerClient::Impl::getLongId(const std::string &name){
+  const auto info =  this->inspectContainer(name);
+  const json message = json::parse(info);
+  return message.at("Id");
+}
+
 //-------------------------DockerClient Implementation-------------------------
 
 DockerClient::DockerClient(const SOCK_TYPE type, const string &path)
@@ -481,4 +488,8 @@ void DockerClient::updateContainer(const std::string &id, const json &config){
   m_impl->updateContainer(id,config);
 }
 
+
+string DockerClient::getLongId(const std::string &name){
+  return m_impl->getLongId(name);
+}
 

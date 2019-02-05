@@ -187,6 +187,7 @@ class DockerClient {
 
   string inspectContainer(const string &id) ;
 
+  string getLongId(const std::string &name);
  private:
   class Impl;
   unique_ptr<Impl> m_impl;
