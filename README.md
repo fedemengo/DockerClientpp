@@ -33,11 +33,11 @@ std::cout << result.ret_code << std::endl
 Note: 
 1. For more usage, see [hello_world.cpp](./doc/example/hello_world.cpp)
 2. For complete API reference, see [header file](./include/DockerClient.hpp) or [documentation](https://codedocs.xyz/tommyleo2/DockerClientpp/classDockerClientpp_1_1DockerClient.html)
-3. For configuration passed in docker client see [Docker Engine API](https://docs.docker.com/engine/api/v1.30/)
+3. For configuration passed in docker client see [Docker Engine API](https://docs.docker.com/engine/api/v1.37/)
 
 ## Build & Install
 
-1. `git clone --recursive https://github.com/tommyleo2/DockerClientpp.git`
+1. `git clone --recursive https://github.com/fedemengo/DockerClientpp.git`
 2. `cd DockerClientpp`
 3. `mkdir build`
 4. `cd build`
@@ -46,6 +46,52 @@ Note:
 
 The library's name is `libDockerClientpp.a`
 Use Headers `#include <dockerclientpp/DockerClientpp.hpp>` in your project
+
+### Install locally
+
+```
+#!/bin/bash
+
+currDir=${PWD}
+clientDir="DockerClientpp"
+
+# cd inside the library
+cd ${clientDir} && \
+
+mkdir -p deps && \
+
+# create build folder
+mkdir -p build && cd build && \
+
+# generate make file with specific location
+cmake .. -DCMAKE_INSTALL_PREFIX=${PWD}/../deps && \
+
+# install the library in the desired location
+make install && \
+
+cd .. && rm -r build && \
+
+echo "Installation succeded!"
+```
+
+### Use library
+
+```
+CC = g++
+
+STATIC_LIB_PATH = -LDockerClientpp/deps/lib -LDockerClientpp/deps/lib 
+STATIC_LIB_NAME = -lDockerClientpp -larchive
+SHARED_LIB_PATH = -rpath=$(PWD)/DockerClientpp/deps/lib
+INCLUDE_PATH = -IDockerClientpp/deps/include/DockerClientpp
+
+LIB_FALGS = $(STATIC_LIB_PATH) $(STATIC_LIB_NAME) $(INCLUDE_PATH) -Wl,$(SHARED_LIB_PATH) -pthread
+
+all: main.cpp
+	$(CC) main.cpp $(LIB_FALGS)
+
+clean:
+	rm -f a.out
+```
 
 ### doxygen support
 
