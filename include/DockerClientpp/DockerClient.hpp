@@ -179,6 +179,16 @@ class DockerClient {
 
   json downloadImage(const string &imageName, const string &tag={}, const json &config={});
 
+	/**
+	 * @brief Create a new image from container
+	 * 
+	 * @param identifier container's id or name
+	 * @param description of the commit
+	 * @param tag name for the image
+	 * @config configuration parameter for creating the image
+	 */
+	json commitImage(const string &idOrName, const string &repo, const string &message, const string &tag="latest", const json &config={});
+
   void killContainer(const std::string &idOrName);
   
   int waitContainer(const std::string &idOrName);
