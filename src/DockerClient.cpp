@@ -22,7 +22,8 @@ class DockerClient::Impl {
   string inspectExecution(const string &id);
   string getContainerStats(const string &id);
   json downloadImage(const string &imageName, const string &tag, const json &config);
-  void killContainer(const std::string &idOrName);
+  json commitImage(const string &idOrName, const string &repo, const string &message, const string &tag, const json &config);
+    void killContainer(const std::string &idOrName);
   int waitContainer(const std::string &idOrName);
   string getLogs(const string &id,bool stdoutFlag=true, bool stderrFlag=true, int tail=-1);
   ExecRet executeCommand(const string &identifier, const vector<string> &cmd);
@@ -289,6 +290,44 @@ json DockerClient::Impl::downloadImage(const string &imageName, const string &ta
    
 }
 
+json DockerClient::Impl::commitImage(const string &idOrName, const string &repo, const string &message, const string &tag, const json &config) {
+    string post_data = config.dump();
+    Header header = createCommonHeader(post_data.size());
+    Uri uri = "/commit";
+
+    QueryParam query_param{
+        {"container", idOrName},
+        {"repo", repo},
+        {"comment", message},
+        {"tag", tag}
+    };
+    shared_ptr<Response> res =
+            http_client.Post(uri, header, query_param, post_data);
+    std::string body;
+    if(!res->body.empty()){
+        body = "["+res->body+']';
+        std::replace( body.begin(), body.end(), '\n', ',');
+        std::replace( body.begin(), body.end(), '\r', ' ');
+        std::size_t found = body.find_last_of(',');
+        body[found]=' ';
+    }
+    switch (res->status_code) {
+    case 201: {
+        json newbody = json::parse(body);
+        return newbody;
+    }
+    case 400: {
+        throw DockerOperationError(uri, res->status_code,
+                                 "Bad request format");   
+    }
+    default: {
+      json body = json::parse(res->body);
+      throw DockerOperationError(uri, res->status_code,
+                                 body["message"].get<string>());
+    }
+  }
+}
+
 string DockerClient::Impl::inspectExecution(const string &id) {
   Header header = createCommonHeader(0);
   Uri uri = "/exec/" + id + "/json";
@@ -426,6 +465,9 @@ json DockerClient::downloadImage(const string &imageName, const string &tag, con
   return m_impl->downloadImage(imageName,tag,config);
 }
 
+json DockerClient::commitImage(const string &idOrName, const string &repo, const string &message, const string &tag, const json &config){
+    return m_impl->commitImage(idOrName, repo, message, tag, config);
+}
 
 void DockerClient::startContainer(const string &identifier) {
   m_impl->startContainer(identifier);
