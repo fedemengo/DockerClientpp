@@ -49,6 +49,8 @@ Use Headers `#include <dockerclientpp/DockerClientpp.hpp>` in your project
 
 ### Install locally
 
+Compile the code inside the library folder
+
 ```
 #!/bin/bash
 
@@ -76,10 +78,12 @@ echo "Installation succeded!"
 
 ### Use library
 
+Link static and dynamic libraries from source folder
+
 ```
 CC = g++
 
-STATIC_LIB_PATH = -LDockerClientpp/deps/lib -LDockerClientpp/deps/lib 
+STATIC_LIB_PATH = -LDockerClientpp/deps/lib
 STATIC_LIB_NAME = -lDockerClientpp -larchive
 SHARED_LIB_PATH = -rpath=$(PWD)/DockerClientpp/deps/lib
 INCLUDE_PATH = -IDockerClientpp/deps/include/DockerClientpp
