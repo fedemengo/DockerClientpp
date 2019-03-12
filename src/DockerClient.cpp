@@ -295,10 +295,13 @@ json DockerClient::Impl::commitImage(const string &idOrName, const string &repo,
     Header header = createCommonHeader(post_data.size());
     Uri uri = "/commit";
 
+    std::string cleanMessage(message);
+    std::replace(cleanMessage.begin(), cleanMessage.end(), ' ', '+');
+
     QueryParam query_param{
         {"container", idOrName},
         {"repo", repo},
-        {"comment", message},
+        {"comment", cleanMessage},
         {"tag", tag}
     };
     shared_ptr<Response> res =
