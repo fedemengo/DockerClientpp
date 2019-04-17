@@ -13,9 +13,9 @@ DockerClientpp is a simple docker client sdk written in C++
 
 DockerClient dc  // Instantiate a client with default option: connect to /var/run/docker.sock
 
-DockerClient dc(SOCK_TYPE::UNIX, "/path/to/docker/daemon/socket");
+DockerClient dc(SOCK_TYPE::SOCK_UNIX, "/path/to/docker/daemon/socket");
 
-DockerClient dc(SOCK_TYPE::TCP, "IP:Port");
+DockerClient dc(SOCK_TYPE::SOCK_TCP, "IP:Port");
 
 string container_id = dc.createContainer({
   {"AttachStdout", true},

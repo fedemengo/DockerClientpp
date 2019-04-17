@@ -34,7 +34,7 @@ class DockerClient {
    * @param path path to the docker daemon socket
    *        if type is TCP, path might be a IP to docker daemon server
    */
-  DockerClient(const SOCK_TYPE type = UNIX,
+  DockerClient(const SOCK_TYPE type = SOCK_UNIX,
                const string &path = "/var/run/docker.sock");
 
   /**

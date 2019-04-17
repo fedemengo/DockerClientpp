@@ -26,7 +26,7 @@ class Socket::Impl {
 using namespace DockerClientpp;
 
 Socket::Impl::Impl(const SOCK_TYPE type, const string &path) : fd(-1) {
-  if (type == UNIX) {
+  if (type == SOCK_UNIX) {
     sockaddr_un server_socket_addr;
     memset(&server_socket_addr, 0, sizeof(sockaddr_un));
     server_socket_addr.sun_family = AF_UNIX;
@@ -34,7 +34,7 @@ Socket::Impl::Impl(const SOCK_TYPE type, const string &path) : fd(-1) {
     addr_length = offsetof(sockaddr_un, sun_path) +
                   strlen(server_socket_addr.sun_path) + 1;
     memcpy(&addr, &server_socket_addr, addr_length);
-  } else if (type == TCP) {
+  } else if (type == SOCK_TCP) {
     //  TODO: URL support
     sockaddr_in server_socket_addr;
 

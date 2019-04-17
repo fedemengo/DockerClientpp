@@ -44,14 +44,14 @@ class ContainerTest : public ::testing::Test {
 };
 
 TEST_F(ContainerTest, UnixSocketTest) {
-  DockerClient dc(DockerClientpp::UNIX);
+  DockerClient dc(DockerClientpp::SOCK_UNIX);
   test(dc);
 }
 
 #ifndef CI_TEST
 
 TEST_F(ContainerTest, TCPSocketTest) {
-  DockerClient dc(DockerClientpp::TCP, "127.0.0.1:8888");
+  DockerClient dc(DockerClientpp::SOCK_TCP, "127.0.0.1:8888");
   test(dc);
 }
 
@@ -59,7 +59,7 @@ TEST_F(ContainerTest, TCPSocketTest) {
 
 TEST(ExecTest, StopContainer){
     string id;
-    DockerClient dc(DockerClientpp::UNIX);
+    DockerClient dc(DockerClientpp::SOCK_UNIX);
     try{
       dc.removeContainer("teststop");
     }
@@ -89,7 +89,7 @@ TEST(ExecTest, StopContainer){
 
 TEST(ExecTest, Killcontainer){
     string id;
-    DockerClient dc(DockerClientpp::UNIX);
+    DockerClient dc(DockerClientpp::SOCK_UNIX);
     try{
       dc.removeContainer("testkill");
     }
@@ -154,7 +154,7 @@ TEST(ExecTest, InspectTest) {
 
 TEST(ExecTest, LongIdTest){
     string id;
-    DockerClient dc(DockerClientpp::UNIX);
+    DockerClient dc(DockerClientpp::SOCK_UNIX);
     try{
       dc.removeContainer("teststop");
     }
@@ -230,7 +230,7 @@ TEST(ExecTest, PutFileTest) {
 }
 
 TEST(ExecTest, PutDirectoryTest) {
-  DockerClient dc;  //(TCP, "127.0.0.1:8888");
+  DockerClient dc;  //(SOCK_TCP, "127.0.0.1:8888");
   string id = "test";
   dc.executeCommand(id, {"sh", "-c", "rm -rf /tmp/*"});
   std::system("mkdir test_directory");

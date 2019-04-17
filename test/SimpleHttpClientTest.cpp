@@ -21,11 +21,11 @@ class IOTest : public ::testing::Test {
 };
 
 IOTest::IOTest()
-    : unix_client(DockerClientpp::UNIX, "/var/run/docker.sock"),
+    : unix_client(DockerClientpp::SOCK_UNIX, "/var/run/docker.sock"),
 #ifdef CI_TEST
-      tcp_client(DockerClientpp::UNIX, "/var/run/docker.sock"),
+      tcp_client(DockerClientpp::SOCK_UNIX, "/var/run/docker.sock"),
 #else
-      tcp_client(DockerClientpp::TCP, "127.0.0.1:8888"),
+      tcp_client(DockerClientpp::SOCK_TCP, "127.0.0.1:8888"),
 #endif
       uri("/images/json"),
       header{{"Content-Type", "application/json"},

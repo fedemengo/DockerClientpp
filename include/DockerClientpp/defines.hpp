@@ -34,7 +34,7 @@ using is_base_of_template =
 /**
  * @brief Type of socket that docker daemon use.
  */
-enum SOCK_TYPE { UNIX, TCP };
+enum SOCK_TYPE { SOCK_UNIX, SOCK_TCP };
 
 using nlohmann::json;
 using std::string;
