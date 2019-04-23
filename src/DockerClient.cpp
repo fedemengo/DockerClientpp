@@ -31,7 +31,7 @@ class DockerClient::Impl {
   void getFile(const string &identifier, const string &file,
                const string &path);
   void updateContainer(const std::string &id, const json &config);
-  std::vector<std::string> getRunningContainers(const std::string &imageName);
+  std::vector<std::string> getRunningContainers();
  private:
   Http::Header createCommonHeader(size_t content_length);
 
@@ -71,7 +71,7 @@ string DockerClient::Impl::listImages() {
 }
 
 
-std::vector<std::string> DockerClient::Impl::getRunningContainers(const std::string &imageName){
+std::vector<std::string> DockerClient::Impl::getRunningContainers(){
   std::vector<std::string> names;
   Header header = createCommonHeader(0);
   Uri uri = "/containers/json";
@@ -89,10 +89,7 @@ std::vector<std::string> DockerClient::Impl::getRunningContainers(const std::str
 
   json body = json::parse(res->body);
   for(const auto& elem:body){
-    const std::string image = elem["Image"].get<std::string>();
-    if(image.find(imageName)!=std::string::npos){
-      names.push_back(elem["Names"].back().get<std::string>().substr(1));
-    }
+    names.push_back(elem["Names"].back().get<std::string>().substr(1));
   }
   return names;
 }
@@ -522,6 +519,6 @@ string DockerClient::getLongId(const std::string &name){
 }
 
 
-std::vector<std::string> DockerClient::getRunningContainers(const std::string &imageName){
-  return m_impl->getRunningContainers(imageName);  
+std::vector<std::string> DockerClient::getRunningContainers(){
+  return m_impl->getRunningContainers();  
 }

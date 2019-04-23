@@ -108,7 +108,7 @@ TEST(ExecTest, GetRunningImages){
                              " > /dev/null 2>&1")
                                 .c_str()) == 0);
 
-    auto names = dc.getRunningContainers("busybox");
+    auto names = dc.getRunningContainers();
     ASSERT_TRUE(names.size()>1);
     bool found = false;
     for(const auto& name:names){

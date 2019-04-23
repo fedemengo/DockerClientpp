@@ -189,7 +189,7 @@ class DockerClient {
 
   string getLongId(const std::string &name);
 
-  std::vector<std::string> getRunningContainers(const std::string &imageName);
+  std::vector<std::string> getRunningContainers();
  private:
   class Impl;
   unique_ptr<Impl> m_impl;
