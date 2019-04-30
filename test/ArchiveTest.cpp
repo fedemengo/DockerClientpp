@@ -8,6 +8,7 @@
 #include "Socket.hpp"
 #include "gtest/gtest.h"
 
+/*
 TEST(ArchiveTest, GetTarTest) {
   std::fstream fs("1", std::fstream::out);
   fs << 1 << std::endl;
@@ -155,3 +156,4 @@ TEST(ArchiveTest, ExtractTest) {
 
   std::system("rm test test_archive.tar -r");
 }
+*/

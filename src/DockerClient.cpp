@@ -2,6 +2,7 @@
 #include "SimpleHttpClient.hpp"
 
 #include <fstream>
+#include <exception>
 
 namespace DockerClientpp {
 class DockerClient::Impl {
@@ -23,7 +24,7 @@ class DockerClient::Impl {
   string getContainerStats(const string &id);
   json downloadImage(const string &imageName, const string &tag, const json &config);
   json commitImage(const string &idOrName, const string &repo, const string &message, const string &tag, const json &config);
-    void killContainer(const std::string &idOrName);
+  void killContainer(const std::string &idOrName);
   int waitContainer(const std::string &idOrName);
   string getLogs(const string &id,bool stdoutFlag=true, bool stderrFlag=true, int tail=-1);
   ExecRet executeCommand(const string &identifier, const vector<string> &cmd);
@@ -399,7 +400,8 @@ ExecRet DockerClient::Impl::executeCommand(const string &identifier,
 void DockerClient::Impl::putFiles(const string &identifier,
                                   const vector<string> &files,
                                   const string &path) {
-  Utility::Archive ar;
+  /*
+	Utility::Archive ar;
   ar.addFiles(files);
   string put_data = ar.getTar();
   Header header = createCommonHeader(put_data.size());
@@ -416,11 +418,14 @@ void DockerClient::Impl::putFiles(const string &identifier,
       throw DockerOperationError(uri, res->status_code,
                                  body["message"].get<string>());
   }
+	*/
+	throw "Not implemented";
 }
 
 void DockerClient::Impl::getFile(const string &identifier, const string &file,
                                  const string &path) {
-  Header header = createCommonHeader(0);
+  /*
+	Header header = createCommonHeader(0);
   Uri uri = "/containers/" + identifier + "/archive";
   shared_ptr<Response> res = http_client.Get(uri, header, {{"path", file}});
   switch (res->status_code) {
@@ -433,6 +438,8 @@ void DockerClient::Impl::getFile(const string &identifier, const string &file,
   }
 
   Utility::Archive::extractTar(res->body, path);
+	*/
+	throw "Not implemented";
 }
 
 std::string DockerClient::Impl::getLongId(const std::string &name){

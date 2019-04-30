@@ -37,14 +37,17 @@ Archive::Impl::Impl() {}
 Archive::Impl::~Impl() {}
 
 void Archive::Impl::addFile(const string &file) {
-  m_files.push_back(file);
+  //m_files.push_back(file);
+	throw "Not implemented";
 }
 void Archive::Impl::addFiles(const vector<string> &files) {
-  m_files.insert(m_files.end(), files.begin(), files.end());
+  //m_files.insert(m_files.end(), files.begin(), files.end());
+	throw "Not implemented";
 }
 
 void Archive::Impl::writeToFd(const int fd) {
-  archive *a;
+  /*
+	archive *a;
 
   a = archive_write_new();
 
@@ -62,9 +65,12 @@ void Archive::Impl::writeToFd(const int fd) {
     writeEntry(a, file_name, file);
   }
   archive_write_free(a);
+	*/
+	throw "Not implemented";
 }
 
 DockerClientpp::string Archive::Impl::getTar() {
+	/*
   archive *a;
   string buffer;
 
@@ -85,12 +91,15 @@ DockerClientpp::string Archive::Impl::getTar() {
   }
   archive_write_free(a);
   return buffer;
+	*/
+	throw "Not implemented";
 }
 
 void Archive::Impl::writeEntry(archive *a,
                                const DockerClientpp::string &file_name,
                                const DockerClientpp::string &file_path) {
-  struct stat st;
+  /*
+	struct stat st;
   stat(file_path.c_str(), &st);
 
   struct archive_entry *entry;
@@ -124,18 +133,24 @@ void Archive::Impl::writeEntry(archive *a,
     }
     closedir(dir);
   }
+	*/
+	throw "Not implemented";
 }
 
 la_ssize_t Archive::Impl::writeToBuffer(archive *, void *client_data,
                                         const void *buff, size_t n) {
-  string *to_buffer = reinterpret_cast<string *>(client_data);
+  /*
+	string *to_buffer = reinterpret_cast<string *>(client_data);
   const char *from_buffer = reinterpret_cast<const char *>(buff);
   to_buffer->append(from_buffer, n);
   return n;
+	*/
+	throw "Not implemented";
 }
 
 void Archive::Impl::extractTar(const string &tar_buffer, const string &path) {
-  archive *a;
+  /*
+	archive *a;
   archive *ext;
   archive_entry *entry;
   int flags = ARCHIVE_EXTRACT_TIME | ARCHIVE_EXTRACT_PERM |
@@ -164,10 +179,13 @@ void Archive::Impl::extractTar(const string &tar_buffer, const string &path) {
   archive_read_free(a);
   archive_write_close(ext);
   archive_write_free(ext);
+	*/
+	throw "Not implemented";
 }
 
 int Archive::Impl::writeContentToDisk(archive *a, archive *disk) {
-  int ret;
+  /*
+	int ret;
   const void *buff;
   size_t size;
   la_int64_t offset;
@@ -178,6 +196,7 @@ int Archive::Impl::writeContentToDisk(archive *a, archive *disk) {
     }
     archive_write_data_block(disk, buff, size, offset);
   }
+	*/
 }
 
 //-------------------------Archive Implementation-------------------------//
