@@ -24,7 +24,7 @@ class DockerClient::Impl {
   json downloadImage(const string &imageName, const string &tag, const json &config);
   json commitImage(const string &idOrName, const string &repo, const string &message, const string &tag, const json &config);
     void killContainer(const std::string &idOrName);
-  int waitContainer(const std::string &idOrName);
+  int waitContainer(const std::string &idOrName, const std::string &condition = "not-running");
   string getLogs(const string &id,bool stdoutFlag=true, bool stderrFlag=true, int tail=-1);
   ExecRet executeCommand(const string &identifier, const vector<string> &cmd);
   void putFiles(const string &identifier, const vector<string> &files,
@@ -263,10 +263,10 @@ void DockerClient::Impl::killContainer(const std::string &idOrName){
   }
 }
 
-int DockerClient::Impl::waitContainer(const std::string &idOrName){
+int DockerClient::Impl::waitContainer(const std::string &idOrName, const std::string &condition){
   ///containers/(id or name)/kill
   Header header = createCommonHeader(0);
-  Uri uri = "/containers/" + idOrName + "/wait";
+  Uri uri = "/containers/" + idOrName + "/wait?condition=" + condition;
 
   shared_ptr<Response> res = http_client.Post(uri, header, {}, {});
   json body = json::parse(res->body);
@@ -547,8 +547,8 @@ void DockerClient::killContainer(const std::string &idOrName){
   m_impl->killContainer(idOrName); 
 }
 
-int DockerClient::waitContainer(const std::string &idOrName){
-  return m_impl->waitContainer(idOrName); 
+int DockerClient::waitContainer(const std::string &idOrName, const std::string &condition){
+  return m_impl->waitContainer(idOrName, condition); 
 }
 
 string DockerClient::getLogs(const string &id,bool stdoutFlag, bool stderrFlag, int tail){

@@ -191,7 +191,7 @@ class DockerClient {
 
   void killContainer(const std::string &idOrName);
   
-  int waitContainer(const std::string &idOrName);
+  int waitContainer(const std::string &idOrName, const std::string &condition = "not-running");
   
   string getLogs(const string &id,bool stdoutFlag=true, bool stderrFlag=true, int tail=-1);
 

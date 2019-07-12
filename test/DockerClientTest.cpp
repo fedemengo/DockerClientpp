@@ -88,7 +88,7 @@ TEST(ExecTest, StopContainer){
 
 TEST(ExecTest, GetRunningImages){
     string id;
-    DockerClient dc(DockerClientpp::UNIX);
+    DockerClient dc(DockerClientpp::SOCK_UNIX);
     try{
       dc.removeContainer("teststop");
     }
