@@ -86,6 +86,46 @@ TEST(ExecTest, StopContainer){
 
 }
 
+TEST(ExecTest, GetRunningImages){
+    string id;
+    DockerClient dc(DockerClientpp::UNIX);
+    try{
+      dc.removeContainer("teststop");
+    }
+    catch(DockerClientpp::DockerOperationError &e){
+      EXPECT_EQ(e.status_code,404);
+    }
+    id = dc.createContainer({{"AttachStdout", true},
+                             {"AttachStderr", false},
+                             {"Tty", true},
+                             {"StopSignal", "SIGKILL"},
+                             {"Image", "busybox:1.26"}},
+                            "teststop");
+    ASSERT_FALSE(id.empty()) << id;
+
+    dc.startContainer("teststop");
+    ASSERT_TRUE(std::system(("docker ps -q --no-trunc | grep " + id +
+                             " > /dev/null 2>&1")
+                                .c_str()) == 0);
+
+    auto names = dc.getRunningContainers();
+    ASSERT_TRUE(names.size()>1);
+    bool found = false;
+    for(const auto& name:names){
+      if(name.compare("teststop")==0){
+        found = true;
+        break;
+      } 
+    }
+    ASSERT_TRUE(found);
+
+    dc.killContainer("teststop");
+    ASSERT_FALSE(std::system(("docker ps -q --no-trunc | grep " + id +
+                              " > /dev/null 2>&1")
+                                 .c_str()) == 0);
+
+
+}
 
 TEST(ExecTest, Killcontainer){
     string id;

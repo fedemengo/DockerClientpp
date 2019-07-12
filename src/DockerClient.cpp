@@ -32,6 +32,7 @@ class DockerClient::Impl {
   void getFile(const string &identifier, const string &file,
                const string &path);
   void updateContainer(const std::string &id, const json &config);
+  std::vector<std::string> getRunningContainers();
  private:
   Http::Header createCommonHeader(size_t content_length);
 
@@ -68,6 +69,30 @@ string DockerClient::Impl::listImages() {
       break;
   }
   return res->body;
+}
+
+
+std::vector<std::string> DockerClient::Impl::getRunningContainers(){
+  std::vector<std::string> names;
+  Header header = createCommonHeader(0);
+  Uri uri = "/containers/json";
+  shared_ptr<Response> res = http_client.Get(uri, header, {});
+  switch (res->status_code) {
+    case 200: {
+      break;
+    }
+    default:
+      json body = json::parse(res->body);
+      throw DockerOperationError(uri, res->status_code,
+                                 body["message"].get<string>());
+      break;
+  }
+
+  json body = json::parse(res->body);
+  for(const auto& elem:body){
+    names.push_back(elem["Names"].back().get<std::string>().substr(1));
+  }
+  return names;
 }
 
 Http::Header DockerClient::Impl::createCommonHeader(size_t content_length) {
@@ -538,3 +563,7 @@ string DockerClient::getLongId(const std::string &name){
   return m_impl->getLongId(name);
 }
 
+
+std::vector<std::string> DockerClient::getRunningContainers(){
+  return m_impl->getRunningContainers();  
+}
