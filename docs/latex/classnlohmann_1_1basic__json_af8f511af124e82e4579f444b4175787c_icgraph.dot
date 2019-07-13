@@ -1,0 +1,36 @@
+digraph "nlohmann::basic_json::is_object"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node277 [label="nlohmann::basic_json\l::is_object",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="return whether value is an object"];
+  Node277 -> Node278 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node278 [label="nlohmann::basic_json\l::is_structured",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#a9f68a0af820c3ced7f9d17851ce4c22d",tooltip="return whether type is structured"];
+  Node277 -> Node279 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node279 [label="nlohmann::basic_json::at",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#a93403e803947b86f4da2d1fb3345cf2c",tooltip="access specified object element with bounds checking"];
+  Node277 -> Node280 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node280 [label="nlohmann::basic_json\l::operator[]",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#a233b02b0839ef798942dd46157cc0fe6",tooltip="access specified object element"];
+  Node277 -> Node281 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node281 [label="nlohmann::basic_json\l::value",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#af9c51328fbe1da75eca750be3009917a",tooltip="access specified object element with default value"];
+  Node281 -> Node282 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node282 [label="nlohmann::basic_json\l::value",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#ad6a18403e7fbac9c4efd06facc71fc88",tooltip="overload for a default value of type const char*"];
+  Node277 -> Node283 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node283 [label="nlohmann::basic_json\l::erase",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#a2f8484d69c55d8f2a9697a7bec29362a",tooltip="remove element from a JSON object given a key"];
+  Node277 -> Node284 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node284 [label="nlohmann::basic_json\l::find",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#aeed33787bd362c7ead59a4ba945392db",tooltip="find an element in a JSON object"];
+  Node284 -> Node281 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node284 -> Node285 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node285 [label="nlohmann::basic_json\l::patch",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#a81e0c41a4a9dff4df2f6973f7f8b2a83",tooltip="applies a JSON patch"];
+  Node284 -> Node286 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node286 [label="nlohmann::basic_json\l::diff",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#a543bd5f7490de54c875b2c0912dc9a49",tooltip="creates a diff as a JSON patch"];
+  Node277 -> Node287 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node287 [label="nlohmann::basic_json\l::count",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#a5261eba9637f59d17d6cab5f14ce5747",tooltip="returns the number of occurrences of a key in a JSON object"];
+  Node277 -> Node288 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node288 [label="nlohmann::basic_json\l::push_back",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#ae11a3a51782c058fff2f6550cdfb9b3c",tooltip="add an object to an object"];
+  Node277 -> Node289 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node289 [label="nlohmann::basic_json\l::emplace",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#a5338e282d1d02bed389d852dd670d98d",tooltip="add an object to an object if key does not exist"];
+  Node277 -> Node290 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node290 [label="nlohmann::basic_json\l::swap",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#ac31f12587d2f1a3be5ffc394aa9d72a4",tooltip="exchanges the values"];
+  Node277 -> Node285 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+}

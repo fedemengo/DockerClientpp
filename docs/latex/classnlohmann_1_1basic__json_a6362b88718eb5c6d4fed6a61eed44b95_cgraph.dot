@@ -1,0 +1,20 @@
+digraph "nlohmann::basic_json::is_primitive"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node291 [label="nlohmann::basic_json\l::is_primitive",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="return whether type is primitive"];
+  Node291 -> Node292 [color="midnightblue",fontsize="10",style="solid"];
+  Node292 [label="nlohmann::basic_json\l::is_null",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#a8faa039ca82427ed29c486ffd00600c3",tooltip="return whether value is null"];
+  Node291 -> Node293 [color="midnightblue",fontsize="10",style="solid"];
+  Node293 [label="nlohmann::basic_json\l::is_string",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#a69b596a4a6683b362095c9a139637396",tooltip="return whether value is a string"];
+  Node291 -> Node294 [color="midnightblue",fontsize="10",style="solid"];
+  Node294 [label="nlohmann::basic_json\l::is_boolean",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#a943e8cb182d0f2365c76d64b42eaa6fd",tooltip="return whether value is a boolean"];
+  Node291 -> Node295 [color="midnightblue",fontsize="10",style="solid"];
+  Node295 [label="nlohmann::basic_json\l::is_number",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#a2b9852390abb4b1ef5fac6984e2fc0f3",tooltip="return whether value is a number"];
+  Node295 -> Node296 [color="midnightblue",fontsize="10",style="solid"];
+  Node296 [label="nlohmann::basic_json\l::is_number_integer",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#abac8af76067f1e8fdca9052882c74428",tooltip="return whether value is an integer number"];
+  Node295 -> Node297 [color="midnightblue",fontsize="10",style="solid"];
+  Node297 [label="nlohmann::basic_json\l::is_number_float",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#a33b4bf898b857c962e798fc7f6e86e70",tooltip="return whether value is a floating-point number"];
+}

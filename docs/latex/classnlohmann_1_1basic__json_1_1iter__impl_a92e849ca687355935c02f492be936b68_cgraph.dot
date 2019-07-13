@@ -1,0 +1,10 @@
+digraph "nlohmann::basic_json::iter_impl::value"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node53 [label="nlohmann::basic_json\l::iter_impl::value",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="return the value of an iterator"];
+  Node53 -> Node54 [color="midnightblue",fontsize="10",style="solid"];
+  Node54 [label="nlohmann::basic_json\l::iter_impl::operator *",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json_1_1iter__impl.html#a2850071895be7a875acaee50a19129cc",tooltip="return a reference to the value pointed to by the iterator"];
+}

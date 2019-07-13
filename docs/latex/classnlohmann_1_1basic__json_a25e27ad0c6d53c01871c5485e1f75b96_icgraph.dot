@@ -1,0 +1,16 @@
+digraph "nlohmann::basic_json::size"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node484 [label="nlohmann::basic_json\l::size",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="returns the number of elements"];
+  Node484 -> Node485 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node485 [label="nlohmann::basic_json\l::erase",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#a88cbcefe9a3f4d294bed0653550a5cb9",tooltip="remove element from a JSON array given an index"];
+  Node484 -> Node486 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node486 [label="nlohmann::basic_json\l::max_size",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#a2f47d3c6a441c57dd2be00449fbb88e1",tooltip="returns the maximum possible number of elements"];
+  Node484 -> Node487 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node487 [label="nlohmann::basic_json\l::patch",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#a81e0c41a4a9dff4df2f6973f7f8b2a83",tooltip="applies a JSON patch"];
+  Node484 -> Node488 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node488 [label="nlohmann::basic_json\l::diff",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#a543bd5f7490de54c875b2c0912dc9a49",tooltip="creates a diff as a JSON patch"];
+}

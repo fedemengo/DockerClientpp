@@ -1,0 +1,30 @@
+\hypertarget{classDockerClientpp_1_1DockerOperationError}{}\section{Docker\+Clientpp\+::Docker\+Operation\+Error Class Reference}
+\label{classDockerClientpp_1_1DockerOperationError}\index{DockerClientpp::DockerOperationError@{DockerClientpp::DockerOperationError}}
+
+
+Inheritance diagram for Docker\+Clientpp\+::Docker\+Operation\+Error\+:
+% FIG 0
+
+
+Collaboration diagram for Docker\+Clientpp\+::Docker\+Operation\+Error\+:
+% FIG 1
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDockerClientpp_1_1DockerOperationError_a8b7f49fd66011164f0f5029d72e0eb1c}\label{classDockerClientpp_1_1DockerOperationError_a8b7f49fd66011164f0f5029d72e0eb1c}} 
+{\bfseries Docker\+Operation\+Error} (const string \&uri, int status\+\_\+code, const string \&what)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDockerClientpp_1_1DockerOperationError_a4fd4e841d3dde58f037342108f988006}\label{classDockerClientpp_1_1DockerOperationError_a4fd4e841d3dde58f037342108f988006}} 
+string {\bfseries uri}
+\item 
+\mbox{\Hypertarget{classDockerClientpp_1_1DockerOperationError_a6a46d6252e212e24ab4778f575e29bd1}\label{classDockerClientpp_1_1DockerOperationError_a6a46d6252e212e24ab4778f575e29bd1}} 
+int {\bfseries status\+\_\+code}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\+Docker\+Clientpp/Exceptions.\+hpp\end{DoxyCompactItemize}

@@ -1,0 +1,28 @@
+digraph "nlohmann::basic_json::end"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node128 [label="nlohmann::basic_json::end",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="returns an iterator to one past the last element"];
+  Node128 -> Node129 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node129 [label="nlohmann::basic_json\l::value",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#af9c51328fbe1da75eca750be3009917a",tooltip="access specified object element with default value"];
+  Node129 -> Node130 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node130 [label="nlohmann::basic_json\l::value",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#ad6a18403e7fbac9c4efd06facc71fc88",tooltip="overload for a default value of type const char*"];
+  Node128 -> Node131 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node131 [label="nlohmann::basic_json\l::back",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#a011397134847f36db0ed7d7a93753677",tooltip="access the last element"];
+  Node128 -> Node132 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node132 [label="nlohmann::basic_json\l::erase",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#a068a16e76be178e83da6a192916923ed",tooltip="remove element given an iterator"];
+  Node132 -> Node133 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node133 [label="nlohmann::basic_json\l::patch",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#a81e0c41a4a9dff4df2f6973f7f8b2a83",tooltip="applies a JSON patch"];
+  Node128 -> Node134 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node134 [label="nlohmann::basic_json\l::find",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#aeed33787bd362c7ead59a4ba945392db",tooltip="find an element in a JSON object"];
+  Node134 -> Node129 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node134 -> Node133 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node134 -> Node135 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node135 [label="nlohmann::basic_json\l::diff",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#a543bd5f7490de54c875b2c0912dc9a49",tooltip="creates a diff as a JSON patch"];
+  Node128 -> Node136 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node136 [label="nlohmann::basic_json\l::rbegin",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#a1ef93e2006dbe52667294f5ef38b0b10",tooltip="returns an iterator to the reverse-beginning"];
+  Node128 -> Node133 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node128 -> Node135 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+}

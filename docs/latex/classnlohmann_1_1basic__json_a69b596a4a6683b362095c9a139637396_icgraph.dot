@@ -1,0 +1,16 @@
+digraph "nlohmann::basic_json::is_string"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node300 [label="nlohmann::basic_json\l::is_string",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="return whether value is a string"];
+  Node300 -> Node301 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node301 [label="nlohmann::basic_json\l::is_primitive",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#a6362b88718eb5c6d4fed6a61eed44b95",tooltip="return whether type is primitive"];
+  Node300 -> Node302 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node302 [label="nlohmann::basic_json\l::erase",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#a068a16e76be178e83da6a192916923ed",tooltip="remove element given an iterator"];
+  Node302 -> Node303 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node303 [label="nlohmann::basic_json\l::patch",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#a81e0c41a4a9dff4df2f6973f7f8b2a83",tooltip="applies a JSON patch"];
+  Node300 -> Node304 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node304 [label="nlohmann::basic_json\l::swap",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#adaa1ed0a889d86c8e0216a3d66980f76",tooltip="exchanges the values"];
+}
