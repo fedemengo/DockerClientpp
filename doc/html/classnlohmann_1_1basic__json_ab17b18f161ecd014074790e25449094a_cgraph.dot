@@ -1,0 +1,18 @@
+digraph "nlohmann::basic_json::operator[]"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node380 [label="nlohmann::basic_json\l::operator[]",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="read-only access specified object element"];
+  Node380 -> Node381 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node381 [label="nlohmann::basic_json\l::operator[]",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#ac871e3b03fb2eeca9a8de4db2bea760f",tooltip="access specified array element"];
+  Node381 -> Node382 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node382 [label="nlohmann::basic_json\l::is_null",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#a8faa039ca82427ed29c486ffd00600c3",tooltip="return whether value is null"];
+  Node381 -> Node383 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node383 [label="nlohmann::basic_json\l::is_array",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#aef9ce5dd2381caee1f8ddcdb5bdd9c65",tooltip="return whether value is an array"];
+  Node381 -> Node384 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node384 [label="nlohmann::basic_json\l::basic_json",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#a32124a16dc80729d964d9caf607c2bc8",tooltip="create an empty value with a given type"];
+  Node381 -> Node385 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node385 [label="nlohmann::basic_json\l::type_name",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnlohmann_1_1basic__json.html#a6b75862bdb4d26650616cf9821430755",tooltip="return the type as string"];
+}
