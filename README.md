@@ -1,7 +1,7 @@
 # A Docker Client SDK for C++
 
 [![Build Status](https://travis-ci.org/tommyleo2/DockerClientpp.svg?branch=master)](https://travis-ci.org/tommyleo2/DockerClientpp)
-[![Documentation](https://codedocs.xyz/tommyleo2/DockerClientpp.svg)](https://codedocs.xyz/tommyleo2/DockerClientpp/)
+[![Documentation](https://codedocs.xyz/tommyleo2/DockerClientpp.svg)](https://fedemengo.github.io/DockerClientpp/)
 
 DockerClientpp is a simple docker client sdk written in C++
 
@@ -32,7 +32,7 @@ std::cout << result.ret_code << std::endl
 ```
 Note: 
 1. For more usage, see [hello_world.cpp](./doc/example/hello_world.cpp)
-2. For complete API reference, see [header file](./include/DockerClient.hpp) or [documentation](https://codedocs.xyz/tommyleo2/DockerClientpp/classDockerClientpp_1_1DockerClient.html)
+2. For complete API reference, see [header file](./include/DockerClient.hpp) or [documentation](https://fedemengo.github.io/DockerClientpp/classDockerClientpp_1_1DockerClient.html)
 3. For configuration passed in docker client see [Docker Engine API](https://docs.docker.com/engine/api/v1.37/)
 
 ## Build & Install
