@@ -49,7 +49,9 @@ class DockerClient {
   /**
    * @brief List all images
    *
-   * Test Only!
+     * @return Images list
+     */
+    std::vector<std::string> listImages();
    *
    * @return Images list in json format
    */

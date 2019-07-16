@@ -10,7 +10,7 @@ class DockerClient::Impl {
   ~Impl();
   void setAPIVersion(const string &api);
   string getLongId(const std::string &name);
-  string listImages();
+  std::vector<std::string> listImages();
   string createContainer(const json &config, const string &name = "");
   void startContainer(const string &identifier);
   string inspectContainer(const string &id);
@@ -54,7 +54,7 @@ void DockerClient::Impl::setAPIVersion(const string &api) {
   api_version = api;
 }
 
-string DockerClient::Impl::listImages() {
+std::vector<std::string> DockerClient::Impl::listImages() {
   Header header = createCommonHeader(0);
   Uri uri = "/images/json";
   shared_ptr<Response> res = http_client.Get(uri, header, {});
@@ -68,7 +68,26 @@ string DockerClient::Impl::listImages() {
                                  body["message"].get<string>());
       break;
   }
-  return res->body;
+    std::vector<std::string> names;
+
+    json body = json::parse(res->body);
+    for(const auto& elem: body){
+        bool done = false;
+        for(const auto &entry: elem["RepoTags"]) {
+            string tagName = entry.get<std::string>();
+            size_t pos = tagName.find("latest");
+            if(pos != std::string::npos) {
+                const string name = tagName.substr(0, pos-1);
+                names.push_back(name);
+                done = true;
+                break;
+            }
+        }
+        if(!done && elem["RepoTags"].size() > 0) {
+            names.push_back(elem["RepoTags"].back().get<std::string>());
+        }
+    }
+    return names;
 }
 
 
@@ -477,7 +496,7 @@ void DockerClient::setAPIVersion(const string &api) {
   m_impl->setAPIVersion(api);
 }
 
-string DockerClient::listImages() {
+std::vector<std::string> DockerClient::listImages() {
   return m_impl->listImages();
 }
 
