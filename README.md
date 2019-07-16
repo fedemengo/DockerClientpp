@@ -27,10 +27,12 @@ string container_id = dc.createContainer({
 
 ExecRet result = dc.executeCommand(container_id, {"echo", "hello DockerClientpp"});
 
-std::cout << result.ret_code << std::endl 
-          << result.output << std::endl; 
+std::cout << result.ret_code << std::endl
+          << result.output << std::endl;
 ```
-Note: 
+
+Note:
+
 1. For more usage, see [hello_world.cpp](./doc/example/hello_world.cpp)
 2. For complete API reference, see [header file](./include/DockerClient.hpp) or [documentation](https://fedemengo.github.io/DockerClientpp/classDockerClientpp_1_1DockerClient.html)
 3. For configuration passed in docker client see [Docker Engine API](https://docs.docker.com/engine/api/v1.37/)
@@ -39,10 +41,8 @@ Note:
 
 1. `git clone --recursive https://github.com/fedemengo/DockerClientpp.git`
 2. `cd DockerClientpp`
-3. `mkdir build`
-4. `cd build`
-5. `cmake ..`
-6. `make install`(with root permission)
+3. `cmake .`
+4. `make install`(with root permission)
 
 The library's name is `libDockerClientpp.a`
 Use Headers `#include <dockerclientpp/DockerClientpp.hpp>` in your project
@@ -60,18 +60,14 @@ clientDir="DockerClientpp"
 # cd inside the library
 cd ${clientDir} && \
 
-mkdir -p deps && \
-
 # create build folder
 mkdir -p build && cd build && \
 
 # generate make file with specific location
-cmake .. -DCMAKE_INSTALL_PREFIX=${PWD}/../deps && \
+cmake .. -DCMAKE_INSTALL_PREFIX=${PWD} && \
 
 # install the library in the desired location
 make install && \
-
-cd .. && rm -r build && \
 
 echo "Installation succeded!"
 ```
@@ -83,10 +79,10 @@ Link static and dynamic libraries from source folder
 ```
 CC = g++
 
-STATIC_LIB_PATH = -LDockerClientpp/deps/lib
+STATIC_LIB_PATH = -LDockerClientpp/build/lib
 STATIC_LIB_NAME = -lDockerClientpp -larchive
-SHARED_LIB_PATH = -rpath=$(PWD)/DockerClientpp/deps/lib
-INCLUDE_PATH = -IDockerClientpp/deps/include/DockerClientpp
+SHARED_LIB_PATH = -rpath=$(PWD)/DockerClientpp/build/lib
+INCLUDE_PATH = -IDockerClientpp/build/include/DockerClientpp
 
 LIB_FALGS = $(STATIC_LIB_PATH) $(STATIC_LIB_NAME) $(INCLUDE_PATH) -Wl,$(SHARED_LIB_PATH) -pthread
 
@@ -96,6 +92,16 @@ all: main.cpp
 clean:
 	rm -f a.out
 ```
+
+## How to
+
+For implementing new functionalities, see the [Docker Engine API](https://docs.docker.com/engine/api/v1.37/) and this nice trick could be really helpful
+
+```
+sudo strace -e write -o strace-docker -s 10240 -f DOCKER COMMAND
+```
+
+You can then inspect the `strace-docker` file and check the HTTP requests that the docker cli makes to the docker engine. Thanks to [@nehaljwani](https://github.com/nehaljwani) for his [SO answer](https://stackoverflow.com/questions/41944550/using-the-docker-rest-api-to-run-a-container-with-parameters)
 
 ### doxygen support
 
