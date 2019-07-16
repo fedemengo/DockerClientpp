@@ -35,3 +35,5 @@ build
 *.swp
 
 deps/
+
+doc/latex/

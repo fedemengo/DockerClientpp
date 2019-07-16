@@ -105,7 +105,7 @@ You can then inspect the `strace-docker` file and check the HTTP requests that t
 
 ### doxygen support
 
-After cmake configuration, execute `make doc`. The doc files will be put under `/<DockerClient root directory>/doc`
+After cmake configuration, execute `make docs`. The doc files will be put under `/<DockerClient root directory>/docs`
 
 ## Use in CMake Project
 

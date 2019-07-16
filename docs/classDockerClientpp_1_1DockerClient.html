@@ -90,9 +90,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af02eb7797cedbac948893bd29a2470c7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDockerClientpp_1_1DockerClient.html#af02eb7797cedbac948893bd29a2470c7">setAPIVersion</a> (const string &amp;api)</td></tr>
 <tr class="memdesc:af02eb7797cedbac948893bd29a2470c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set Docker daemon API version.  <a href="#af02eb7797cedbac948893bd29a2470c7">More...</a><br /></td></tr>
 <tr class="separator:af02eb7797cedbac948893bd29a2470c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75a5e6d2cde8f461af8f60a41261df09"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDockerClientpp_1_1DockerClient.html#a75a5e6d2cde8f461af8f60a41261df09">listImages</a> ()</td></tr>
-<tr class="memdesc:a75a5e6d2cde8f461af8f60a41261df09"><td class="mdescLeft">&#160;</td><td class="mdescRight">List all images.  <a href="#a75a5e6d2cde8f461af8f60a41261df09">More...</a><br /></td></tr>
-<tr class="separator:a75a5e6d2cde8f461af8f60a41261df09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c069d3781ac0d7356b038653297220d"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDockerClientpp_1_1DockerClient.html#a5c069d3781ac0d7356b038653297220d">listImages</a> ()</td></tr>
+<tr class="memdesc:a5c069d3781ac0d7356b038653297220d"><td class="mdescLeft">&#160;</td><td class="mdescRight">List all images.  <a href="#a5c069d3781ac0d7356b038653297220d">More...</a><br /></td></tr>
+<tr class="separator:a5c069d3781ac0d7356b038653297220d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a264360bb634aae0c955b2a3f449c1917"><td class="memItemLeft" align="right" valign="top"><a id="a264360bb634aae0c955b2a3f449c1917"></a>
+**return Images list in json format *string&#160;</td><td class="memItemRight" valign="bottom"><b>listImages</b> ()</td></tr>
+<tr class="separator:a264360bb634aae0c955b2a3f449c1917"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0bef0244ed9468797267bef38252cc62"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDockerClientpp_1_1DockerClient.html#a0bef0244ed9468797267bef38252cc62">createContainer</a> (const json &amp;config, const string &amp;name=&quot;&quot;)</td></tr>
 <tr class="memdesc:a0bef0244ed9468797267bef38252cc62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new container based on existing image.  <a href="#a0bef0244ed9468797267bef38252cc62">More...</a><br /></td></tr>
 <tr class="separator:a0bef0244ed9468797267bef38252cc62"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -468,14 +471,14 @@ std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bott
 
 </div>
 </div>
-<a id="a75a5e6d2cde8f461af8f60a41261df09"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a75a5e6d2cde8f461af8f60a41261df09">&#9670;&nbsp;</a></span>listImages()</h2>
+<a id="a5c069d3781ac0d7356b038653297220d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c069d3781ac0d7356b038653297220d">&#9670;&nbsp;</a></span>listImages()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">string DockerClientpp::DockerClient::listImages </td>
+          <td class="memname">std::vector&lt;std::string&gt; DockerClientpp::DockerClient::listImages </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -484,8 +487,7 @@ std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bott
 </div><div class="memdoc">
 
 <p>List all images. </p>
-<p>Test Only!</p>
-<dl class="section return"><dt>Returns</dt><dd>Images list in json format </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Images list </dd></dl>
 
 </div>
 </div>
@@ -741,7 +743,7 @@ std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bott
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/DockerClientpp/<a class="el" href="DockerClient_8hpp_source.html">DockerClient.hpp</a></li>
+<li>/home/fedemengo/workspace/smartcontract/container/DockerClientpp/include/DockerClientpp/<a class="el" href="DockerClient_8hpp_source.html">DockerClient.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
