@@ -10,6 +10,7 @@ class DockerClient::Impl {
   ~Impl();
   void setAPIVersion(const string &api);
   string getLongId(const std::string &name);
+  void buildImage(const std::string dockerfile, const std::string taggedName);
   std::vector<std::string> listImages();
   string createContainer(const json &config, const string &name = "");
   void startContainer(const string &identifier);
@@ -54,20 +55,48 @@ void DockerClient::Impl::setAPIVersion(const string &api) {
   api_version = api;
 }
 
+void DockerClient::Impl::buildImage(const std::string dockerfile, const std::string taggedName) {
+    Utility::Archive ar;
+    ar.addFiles({dockerfile});
+    string post_data = ar.getTar();
+    Header header = createCommonHeader(post_data.size());
+    Uri uri = "/build";
+    header["Content-Type"] = "application/x-tar";
+
+    std::size_t found = dockerfile.find_last_of("/");
+    const string dockerfileName = dockerfile.substr(found+1);
+
+    std::string sanitizedTagName(taggedName);
+    std::replace(sanitizedTagName.begin(), sanitizedTagName.end(), ':', '\x3A');
+
+    QueryParam query_param{
+        {"dockerfile", dockerfileName},
+        {"t", sanitizedTagName}
+    };
+    shared_ptr<Response> res = http_client.Post(uri, header, query_param, post_data);
+    switch (res->status_code) {
+        case 200:
+        break;
+        default:
+        json body = json::parse(res->body);
+        throw DockerOperationError(uri, res->status_code, body["message"].get<string>());
+    }
+}
+
 std::vector<std::string> DockerClient::Impl::listImages() {
-  Header header = createCommonHeader(0);
-  Uri uri = "/images/json";
-  shared_ptr<Response> res = http_client.Get(uri, header, {});
-  switch (res->status_code) {
+    Header header = createCommonHeader(0);
+    Uri uri = "/images/json";
+    shared_ptr<Response> res = http_client.Get(uri, header, {});
+    switch (res->status_code) {
     case 200: {
-      break;
+        break;
     }
     default:
-      json body = json::parse(res->body);
-      throw DockerOperationError(uri, res->status_code,
-                                 body["message"].get<string>());
-      break;
-  }
+        json body = json::parse(res->body);
+        throw DockerOperationError(uri, res->status_code,
+                                    body["message"].get<string>());
+        break;
+    }
     std::vector<std::string> names;
 
     json body = json::parse(res->body);
@@ -494,6 +523,10 @@ DockerClient::~DockerClient() {}
 
 void DockerClient::setAPIVersion(const string &api) {
   m_impl->setAPIVersion(api);
+}
+
+void DockerClient::buildImage(const std::string dockerfile, const std::string taggedName) {
+    m_impl->buildImage(dockerfile, taggedName);
 }
 
 std::vector<std::string> DockerClient::listImages() {
